@@ -1,0 +1,14 @@
+# Local .terraform directories
+.terraform/
+
+# all files containing '.terraform.'
+.terraform.*
+
+# all .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
+example: *tfplan*
+
+.DS_Store
