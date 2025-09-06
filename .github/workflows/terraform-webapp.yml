@@ -1,4 +1,4 @@
-name: Terraform workflow for WebApp (VM), DB and Load Balancer resources
+name:  WebApp (VM), DB and Load Balancer resources management with Terraform
 
 on:
   workflow_dispatch:
