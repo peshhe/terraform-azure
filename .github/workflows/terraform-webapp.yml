@@ -37,9 +37,9 @@ env:
   TF_WORKDIR: ${{ github.workspace }}/terraform-files
   TF_VAR_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   TF_VAR_environment: ${{ inputs.environment || github.ref_name }} # takes the input, or branch name
-  TF_VAR_admin_username: ${{ secrets.WEBAPP_USERNAME }}
-  TF_VAR_admin_password: ${{ secrets.WEBAPP_PASSWORD }}
   TF_VAR_allowed_ip_address: ${{ secrets.MY_PERSONAL_IP }}
+  TF_VAR_admin_username: ${{ secrets.WEBAPP_VM_USERNAME }}
+  TF_VAR_admin_password: ${{ secrets.WEBAPP_VM_PASSWORD }}
   TF_VAR_number_of_instances: ${{ inputs.number_of_instances || '2' }}
   TF_VAR_slack_url: ${{ secrets.SLACK_WEBHOOK_URL }}
 
