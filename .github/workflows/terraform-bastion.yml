@@ -17,10 +17,11 @@ env: # Sets environment variables for Terraform
   TF_VAR_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   TF_VAR_admin_username: ${{ secrets.BASTION_USERNAME }}
   TF_VAR_admin_password: ${{ secrets.BASTION_PASSWORD }}
-  TF_VAR_allowed_ip_address: ${{ secrets.BASTION_ALLOWED_IP }}
+  TF_VAR_allowed_ip_address: ${{ secrets.MY_PERSONAL_IP }}
 
 jobs:
   create-or-delete-resources:
+    name: Create or Delete resources for VM used as Bastion
     runs-on: ubuntu-latest
 
     defaults:
