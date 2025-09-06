@@ -25,13 +25,13 @@ variable "allowed_ip_address" { # will be set by CI/CD
   sensitive   = true
 }
 
-variable "admin_username" { # will be set dynamically by CI/CD
+variable "admin_username" { # will be set by CI/CD
   type        = string
   description = "Admin account's username for the VMs."
   sensitive   = true
 }
 
-variable "admin_password" { # will be set dynamically by CI/CD
+variable "admin_password" { # will be set by CI/CD
   type        = string
   description = "The password for the admin account."
   sensitive   = true
