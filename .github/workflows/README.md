@@ -4,7 +4,7 @@ These workflows are [the GitHub way](https://docs.github.com/en/actions/get-star
 
 ## Global secrets:
 
-For the workflows to run successfully, a set of repository secrets must be configured **in advance** in the repository's [Settings section](../../../settings/secrets/actions) (under `Settings > Secrets and variables > Actions`). The following secrets are used by all workflows:
+For the workflows to run successfully, a set of repository secrets must be configured **in advance** in the repository's [Settings section](../../../../settings/secrets/actions) (under `Settings > Secrets and variables > Actions`). The following secrets are used by all workflows:
 
 | Secret | Description | Example value |
 | --- | --- | --- |
@@ -25,8 +25,8 @@ This workflow automates the deployment of the web application stack using Terraf
 
 The workflow has two triggers:
 
-* `workflow_dispatch`: Allows to manually trigger the workflow form the GitHub [Actions](../../../actions) UI section of the repository.
-* `pull_request`: Automatically triggers the workflow on [Pull Requests](../../../pulls). The `branches` keyword filters the trigger, so it only runs on pull requests that target the specified branches. The `types` keyword is set to `closed` and `if` condition is set on job level, which means the workflow will trigger only when a pull request is **closed**.
+* `workflow_dispatch`: Allows to manually trigger the workflow form the GitHub [Actions](../../../../actions) UI section of the repository.
+* `pull_request`: Automatically triggers the workflow on [Pull Requests](../../../../pulls). The `branches` keyword filters the trigger, so it only runs on pull requests that target the specified branches. The `types` keyword is set to `closed` and `if` condition is set on job level, which means the workflow will trigger only when a pull request is **closed**.
 
 > **_Summary:_** The current setup automatically triggers the workflow only when a pull request to the `dev` or `prod` branches is **closed**. This is useful for running a final apply **after** a successful merge.
 

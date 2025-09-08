@@ -33,7 +33,7 @@ The project is organized into three distinct, logical modules to manage differen
 
 ### CI/CD with GitHub Actions
 
-This repository leverages [GitHub Actions](../../actions) to automate the deployment of the web application and the bastion host. Each workflow is designed to be triggered manually, providing controlled and on-demand deployment capabilities. The [task's assignment](#objective-definition) requires _provisioning and deployment, to be triggered by code changes in the repository_, so the GHA (GitHub Actions) workflow that manages that has also the corresponding trigger for automated execution.
+This repository leverages [GitHub Actions](../../../actions) to automate the deployment of the web application and the bastion host. Each workflow is designed to be triggered manually, providing controlled and on-demand deployment capabilities. The [task's assignment](#objective-definition) requires _provisioning and deployment, to be triggered by code changes in the repository_, so the GHA (GitHub Actions) workflow that manages that has also the corresponding trigger for automated execution.
 
 More info can be found in the GHA [workflows' README](./.github/workflows/).
 
@@ -66,7 +66,7 @@ More info can be found in the GHA [workflows' README](./.github/workflows/).
    ```
 
 3. **Configure GitHub Repository Secrets:**
-Add the necessary Azure credentials and SSH credentials to your GitHub repository's [secrets settings](../../settings/secrets/actions) described in [workflows' README](./.github/workflows/).
+Add the necessary Azure credentials and SSH credentials to your GitHub repository's [secrets settings](../../../settings/secrets/actions) described in [workflows' README](./.github/workflows/).
 
 4. **Automated Deployment (Webapp & Bastion):**
-Navigate to the ["Actions" tab](../../actions) in your GitHub repository and manually run the desired workflow (`terraform-webapp.yml` for WebApp stack deployment or `terraform-bastion.yml` for Bastion Host deployment).
+Navigate to the ["Actions" tab](../../../actions) in your GitHub repository and manually run the desired workflow (`terraform-webapp.yml` for WebApp stack deployment or `terraform-bastion.yml` for Bastion Host deployment).
