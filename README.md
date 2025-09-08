@@ -116,16 +116,28 @@ Once the core infrastructure is in place and repository secrets are configured, 
 - **GitHub Actions Logs**: Check workflow execution logs in the Actions tab
 - **Azure Activity Log**: Monitor resource deployment status in Azure Portal
 
+## Next steps
+
+This section describes improvements that can be made to this repo and it's setup
+
+- Add a separate `README.md` file for each independent terraform configuration folder like [`terraform-initial-resources/`](terraform-initial-resources/), [`terraform-webapp/`](terraform-webapp/), etc. to describe what resources are being managed and relation between them.
+- Strenghten the database network security with disabling public access to it and deploying a [Private Endpoint](https://learn.microsoft.com/en-us/azure/cosmos-db/how-to-configure-private-endpoints) to enable WebApp VMs to have access to it.
+- Implement a solution that would trigger workflows on code changes done only on `*.tf` files.
+- [Terraform modules](https://developer.hashicorp.com/terraform/language/modules) for a scalable resource deploymet: [Develop](https://developer.hashicorp.com/terraform/language/modules/develop) and utilize [ready-to-use](https://registry.terraform.io/browse/modules) ones.
+- Implement automation for service fail-over, such as auto-restart of failing services (detect service failures and initiate fail-over procedures).
+- Document the fail-over process.
+
 ## Activity log
 
 Last updated | Changes
 --- | ---
-4 Sep 2025 | Upload of **_core infrastructure_** files in [`terraform-initial-resources/`](terraform-initial-resources/) directory.
-5 Sep 2025 | Upload of **_Bastion Host_** files in [`terraform-bastion/`](terraform-bastion/) directory.
-6 Sep 2025 | Upload of **_WebApp Stack_** files in [`terraform-webapp/`](terraform-webapp/) directory.
-6 Sep 2025 | Upload of **_GitHub Actions workflow_** files in [`.github/workflows/`](.github/workflows/) directory.
-6 Sep 2025 | Misc fixes of GHA workflows.
-8 Sep 2025 | Added a trigger for [`terraform-webapp.yml`](.github/workflows/terraform-webapp.yml) workflow that detects merged pull requests.
-8 Sep 2025 | Added [this](README.md) and [this](.github/workflows/README.md) `README.md` files
-9 Sep 2025 | Added description of Bastion deployment and usage.
+9 Sep 2025 | Added the [Next steps](#next-steps) section.
 9 Sep 2025 | Added the [Troubleshooting](#troubleshooting) and [Activity log](#activity-log) sections.
+9 Sep 2025 | Added description of Bastion deployment and usage.
+8 Sep 2025 | Added [this](README.md) and [this](.github/workflows/README.md) `README.md` files
+8 Sep 2025 | Added a trigger for [`terraform-webapp.yml`](.github/workflows/terraform-webapp.yml) workflow that detects merged pull requests.
+6 Sep 2025 | Misc fixes of GHA workflows.
+6 Sep 2025 | Upload of **_GitHub Actions workflow_** files in [`.github/workflows/`](.github/workflows/) directory.
+6 Sep 2025 | Upload of **_WebApp Stack_** files in [`terraform-webapp/`](terraform-webapp/) directory.
+5 Sep 2025 | Upload of **_Bastion Host_** files in [`terraform-bastion/`](terraform-bastion/) directory.
+4 Sep 2025 | Upload of **_core infrastructure_** files in [`terraform-initial-resources/`](terraform-initial-resources/) directory.
