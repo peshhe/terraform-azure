@@ -1,0 +1,103 @@
+name:  WebApp (VM), DB and Load Balancer resources management with Terraform
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Create or delete resources?"
+        required: true
+        default: 'create'
+        type: choice
+        options:
+          - 'create'
+          - 'delete'
+      environment:
+        description: "Which environment to work on?"
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - 'dev'
+          - 'prod'
+      number_of_instances:
+        description: "How many VMs?"
+        required: true
+        default: '2'
+        type: choice
+        options:
+          - '0'
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
+
+
+env:
+  TF_WORKDIR: ${{ github.workspace }}/terraform-webapp
+  TF_VAR_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  TF_VAR_environment: ${{ inputs.environment || github.ref_name }} # takes the input, or branch name
+  TF_VAR_allowed_ip_address: ${{ secrets.MY_PERSONAL_IP }}
+  TF_VAR_admin_username: ${{ secrets.WEBAPP_VM_USERNAME }}
+  TF_VAR_admin_password: ${{ secrets.WEBAPP_VM_PASSWORD }}
+  TF_VAR_number_of_instances: ${{ inputs.number_of_instances || '2' }}
+  TF_VAR_slack_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+jobs:
+  create-or-delete-resources:
+    name: Create or Delete resources for WebApp ${{ inputs.environment || github.ref_name }} environment
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ${{ env.TF_WORKDIR }} # Sets the default working directory for all the steps
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_JSON_CREDENTIALS }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        # Initializes the environment-specific backend configuration - each environment has its own state file
+        run: terraform init -backend-config=key="${{ env.TF_VAR_environment }}-environment.tfstate"
+
+      - name: Terraform Plan
+        # Runs when 'Resource creation' is the selected action
+        if: ${{ inputs.action == 'create' }}
+        # Outputs a 'tfplan' file as well as 'tfplan.txt' file (without colors)
+        run: terraform plan -out tfplan -no-color | tee tfplan.txt
+
+      - name: Terraform Plan -destroy
+        # Runs when 'Resource deletion' is the selected action
+        if: ${{ inputs.action == 'delete' }}
+        # Outputs a 'tfplan' file as well as 'tfplan.txt' file (without colors)
+        run: terraform plan -destroy -out tfplan -no-color | tee tfplan.txt
+
+      - name: Terraform Apply
+        run: terraform apply "tfplan" -no-color | tee tfapply.txt
+
+      - name: Save the Terraform Apply Artifact
+        # Saves the 'tfapply' file as log if needed for future review/debugging
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-run-id-${{ github.run_id }}-tfapply
+          path: ${{ env.TF_WORKDIR }}/tfapply*
+          retention-days: 30
+          if-no-files-found: error
+
+      - name: Azure Logout and cleanup
+        # Runs always
+        if: ${{ always() }}
+        run: |
+          az logout
+          az cache purge
+          az account clear
