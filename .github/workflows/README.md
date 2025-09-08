@@ -17,7 +17,7 @@ For more information, see [Using secrets in GitHub Actions](https://docs.github.
 
 ## Explanation of each workflow
 
-### [`terraform-webapp.yml`](./terraform-webapp.yml) - WebApp Stack  management with Terraform
+### [`terraform-webapp.yml`](terraform-webapp.yml) - WebApp Stack  management with Terraform
 
 This workflow automates the deployment of the web application stack using Terraform. It is designed to be a repeatable and configurable deployment process. It manages the **Load Balancer**, **WebApp**, and **DB** resources located in the [`terraform-webapp`](../../terraform-webapp/) folder.
 

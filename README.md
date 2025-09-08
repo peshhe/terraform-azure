@@ -27,17 +27,17 @@ Key requirements include automating the provisioning of a load balancer, web ser
 
 The project is organized into three distinct, logical modules to manage different aspects of the infrastructure. Each folder contains its own self-contained Terraform configuration.
 
-* [`terraform-initial-resources/`](./terraform-initial-resources/): Contains the fundamental infrastructure components, including the **_core infrastructure_** Resource Group and Virtual Network. These foundational resources must be deployed **manually** and serve as [prerequisites](#prerequisites) for the other components.
+* [`terraform-initial-resources/`](terraform-initial-resources/): Contains the fundamental infrastructure components, including the **_core infrastructure_** Resource Group and Virtual Network. These foundational resources must be deployed **manually** and serve as [prerequisites](#prerequisites) for the other components.
 
-* [`terraform-webapp/`](./terraform-webapp/): Manages the web application's infrastructure, which includes the load balancer, the web server virtual machine(s) and the database. This module is designed for automated deployment via GitHub Actions.
+* [`terraform-webapp/`](terraform-webapp/): Manages the web application's infrastructure, which includes the load balancer, the web server virtual machine(s) and the database. This module is designed for automated deployment via GitHub Actions.
 
-* [`terraform-bastion/`](./terraform-bastion/): A separate, **optional** module for deploying a [Bastion Host](https://en.wikipedia.org/wiki/Bastion_host). This provides a secure [SSH access](https://en.wikipedia.org/wiki/Secure_Shell) to the private web server VM(s) **when needed** for maintenance or debugging. Also designed for automated deployment via GitHub Actions.
+* [`terraform-bastion/`](terraform-bastion/): A separate, **optional** module for deploying a [Bastion Host](https://en.wikipedia.org/wiki/Bastion_host). This provides a secure [SSH access](https://en.wikipedia.org/wiki/Secure_Shell) to the private web server VM(s) **when needed** for maintenance or debugging. Also designed for automated deployment via GitHub Actions.
 
 ### CI/CD with GitHub Actions
 
-This repository leverages [GitHub Actions](../../../actions) to automate the deployment of the web application and the bastion host. Each workflow is designed to be triggered manually, providing controlled and on-demand deployment capabilities. The [task's assignment](#objective-definition) requires _provisioning and deployment, to be triggered by code changes in the repository_, so the GHA (GitHub Actions) workflow that manages that has also the corresponding trigger for automated execution.
+This repository leverages [GitHub Actions](https://docs.github.com/en/actions/get-started/understand-github-actions) to automate the deployment of the web application and the bastion host. Each workflow is designed to be triggered manually, providing controlled and on-demand deployment capabilities. The [task's assignment](#objective-definition) requires _provisioning and deployment, to be triggered by code changes in the repository_, so the GHA (GitHub Actions) workflow that manages that has also the corresponding trigger for automated execution.
 
-More info can be found in the GHA [workflows' README](./.github/workflows/).
+More info can be found in the GHA [workflows' README](.github/workflows/).
 
 ## Usage
 
@@ -68,12 +68,12 @@ More info can be found in the GHA [workflows' README](./.github/workflows/).
    ```
 
 3. **Configure GitHub Repository Secrets:**
-Add the necessary Azure credentials and SSH credentials to your GitHub repository's [secrets settings](../../../settings/secrets/actions) described in [workflows' README](./.github/workflows/).
+Add the necessary Azure credentials and SSH credentials to your GitHub repository's [secrets settings](../../settings/secrets/actions) described in [workflows' README](.github/workflows/).
 
 4. **Automated Deployment of Webapp Stack:**
-Once the core infrastructure is in place and repository secrets are configured, navigate to the ["Actions" tab](../../../actions) in your GitHub repository and manually run the [WebApp stack deployment workflow](../../../actions/workflows/terraform-webapp.yml). You can specify the desired number of VM instances as an input to the workflow execution.
+Once the core infrastructure is in place and repository secrets are configured, navigate to the ["Actions" tab](../../actions) in your GitHub repository and manually run the [WebApp stack deployment workflow](../../actions/workflows/terraform-webapp.yml). You can specify the desired number of VM instances as an input to the workflow execution.
 
-5. **(Optional) Deploy Bastion Host:** If SSH access to the webapp VMs is required, trigger the [bastion deployment workflow](../../../actions/workflows/terraform.bastion.yml) manually to deploy a secure jump host. After successfull execution:
+5. **(Optional) Deploy Bastion Host:** If SSH access to the webapp VMs is required, trigger the [bastion deployment workflow](../../actions/workflows/terraform-bastion.yml) manually to deploy a secure jump host. After successfull execution:
 
     - **Connect to Bastion**: Use the credentials stored in `BASTION_USERNAME` and `BASTION_PASSWORD` secrets.
 
@@ -96,7 +96,7 @@ Once the core infrastructure is in place and repository secrets are configured, 
 
 #### Workflow Failures
 
-- Verify all required repository secrets are configured as described in [this `README.md`](./.github/workflows/README.md).
+- Verify all required repository secrets are configured as described in [this `README.md`](.github/workflows/README.md).
 - Check Azure Service Principal permissions and credentials.
 - Ensure core infrastructure is deployed **before** webapp/bastion!
 
@@ -120,7 +120,7 @@ Once the core infrastructure is in place and repository secrets are configured, 
 
 Last updated | Changes
 --- | ---
-4 Sep 2025 | Upload of **_core infrastructure_** files in [`terraform-initial-resources/`](./terraform-initial-resources/) directory.
+4 Sep 2025 | Upload of **_core infrastructure_** files in [`terraform-initial-resources/`](terraform-initial-resources/) directory.
 5 Sep 2025 | Upload of **_Bastion Host_** files in [`terraform-bastion/`](terraform-bastion/) directory.
 6 Sep 2025 | Upload of **_WebApp Stack_** files in [`terraform-webapp/`](terraform-webapp/) directory.
 6 Sep 2025 | Upload of **_GitHub Actions workflow_** files in [`.github/workflows/`](.github/workflows/) directory.
