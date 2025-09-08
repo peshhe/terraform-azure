@@ -1,6 +1,9 @@
 name:  WebApp (VM), DB and Load Balancer resources management with Terraform
 
 on:
+  pull_request:
+    branches: [ 'prod', 'dev' ]
+    types: [ 'closed' ]
   workflow_dispatch:
     inputs:
       action:
