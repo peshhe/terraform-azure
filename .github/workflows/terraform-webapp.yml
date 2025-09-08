@@ -50,6 +50,8 @@ jobs:
   create-or-delete-resources:
     name: Create or Delete resources for WebApp ${{ inputs.environment || github.ref_name }} environment
     runs-on: ubuntu-latest
+    # Starts only if the PR is merged OR if triggered manually
+    if: ${{ github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch' }}
 
     defaults:
       run:
