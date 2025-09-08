@@ -82,5 +82,5 @@ In addition to the [global secrets](#global-secrets), this workflow requires the
 | Secret | Description | Example value |
 | --- | --- | --- |
 | `MY_PERSONAL_IP` | The only IP address that will have SSH access to the Bastion Host VM. | `212.5.142.47` |
-| `BASTION_USERNAME` | The admin username that would be used for SSH login to the Bastion Host VM. | `adminwebapp` |
+| `BASTION_USERNAME` | The admin username that would be used for SSH login to the Bastion Host VM. | `adminbastion` |
 | `BASTION_PASSWORD` | The password for the bastion's admin account. | `BastionP@$w0rd!123` |
